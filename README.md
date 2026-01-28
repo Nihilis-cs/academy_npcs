@@ -11,15 +11,18 @@ Ce datapack génère automatiquement des dresseurs Pokémon avec des équipes é
 ## 🎮 Utilisation
 
 ### Commandes principales
+
 - `/function academy_npcs:config/start` - Démarrer le système de spawn automatique
-- `/function academy_npcs:config/stop` - Arrêter le système et retirer tous les dresseurs  
+- `/function academy_npcs:config/stop` - Arrêter le système et retirer tous les dresseurs
 - `/function academy_npcs:config/reload` - Recharger la configuration des équipes
-- `/function academy_npcs:trainer/spawn_manual` - Spawner un dresseur manuellement
+- `/function academy_npcs:trainer/spawn_debug` - **Spawn de test avec diagnostic** (recommandé pour les tests)
+- `/function academy_npcs:trainer/spawn_manual` - Spawner un dresseur manuellement (validations strictes)
 - `/function academy_npcs:config/force_end_battles` - Forcer la fin de tous les combats en cours
 - `/function academy_npcs:config/set_post_battle_delay` - Configurer le délai de despawn post-combat
 - `/function academy_npcs:config/cobblemon_integration` - Guide d'intégration Cobblemon
 
 ### Fonctionnement
+
 1. **Spawn automatique** : Toutes les 2 minutes, chance de spawn près d'un joueur aléatoire
 2. **Zones d'équilibrage** : 4 zones basées sur la distance du spawn (0-500, 500-2000, 2000-5000, 5000+ blocs)
 3. **Spawn intelligent** : Les dresseurs apparaissent uniquement sur des surfaces appropriées (sol solide, espace libre, pas dans les arbres)
@@ -30,9 +33,11 @@ Ce datapack génère automatiquement des dresseurs Pokémon avec des équipes é
 ## ⚙️ Configuration des Équipes
 
 ### Fichier de configuration
-Éditez le fichier : `data/academy_npcs/functions/config/teams.mcfunction`
+
+Éditez le fichier : `data/academy_npcs/function/config/teams.mcfunction`
 
 ### Format des équipes
+
 ```mcfunction
 # Zone X (description)
 data modify storage academy_npcs:teams zone_X set value []
@@ -40,6 +45,7 @@ data modify storage academy_npcs:teams zone_X append value {name:"Nom du Dresseu
 ```
 
 ### Exemple d'ajout d'équipe
+
 ```mcfunction
 # Ajouter un nouveau dresseur en Zone 1
 data modify storage academy_npcs:teams zone_1 append value {name:"Rookie Tom", pokemon:["charmander","squirtle","bulbasaur"]}
@@ -48,21 +54,25 @@ data modify storage academy_npcs:teams zone_1 append value {name:"Rookie Tom", p
 ## 🏆 Zones et Équilibrage
 
 ### Zone 1 (0-500 blocs) - Débutant
+
 - **Équipes** : 3-4 Pokémon niveau 5-15
 - **Types** : Pokémon basiques (Caterpie, Rattata, Geodude...)
 - **Difficulté** : ⭐
 
-### Zone 2 (500-2000 blocs) - Intermédiaire  
+### Zone 2 (500-2000 blocs) - Intermédiaire
+
 - **Équipes** : 4-5 Pokémon niveau 15-30
 - **Types** : Évolutions niveau 2 (Ivysaur, Machoke...)
 - **Difficulté** : ⭐⭐
 
 ### Zone 3 (2000-5000 blocs) - Avancé
+
 - **Équipes** : 5-6 Pokémon niveau 30-50
 - **Types** : Évolutions finales + quelques légendaires
 - **Difficulté** : ⭐⭐⭐
 
 ### Zone 4 (5000+ blocs) - Légendaire
+
 - **Équipes** : 6 Pokémon niveau 50+
 - **Types** : Équipes de champions + légendaires
 - **Difficulté** : ⭐⭐⭐⭐⭐
@@ -70,7 +80,9 @@ data modify storage academy_npcs:teams zone_1 append value {name:"Rookie Tom", p
 ## 🔧 Personnalisation Avancée
 
 ### Spawn Intelligent
+
 Le système vérifie automatiquement :
+
 - **Surface solide** : Terre, pierre, herbe, sable, etc.
 - **Espace libre** : 2 blocs de hauteur minimum
 - **Pas dans l'eau/lave** : Évite les spawns dangereux
@@ -79,32 +91,44 @@ Le système vérifie automatiquement :
 - **Retry automatique** : Jusqu'à 5 tentatives pour trouver une position valide
 
 ### Modifier la fréquence de spawn
+
 Dans `config/start.mcfunction`, changez la ligne :
+
 ```mcfunction
 schedule function academy_npcs:trainer/spawn_random 120s replace
 ```
+
 `120s` = toutes les 2 minutes. Remplacez par `60s` (1 min), `300s` (5 min), etc.
 
 ### Modifier le délai de despawn post-combat
+
 Dans `config/set_post_battle_delay.mcfunction`, changez :
+
 ```mcfunction
 scoreboard players set #post_battle_delay academy_npcs 600
 ```
+
 `600` = 30 secondes. Remplacez par `300` (15 sec), `1200` (1 min), etc.
 
 ### Gestion des combats
+
 Le système détecte automatiquement la fin des combats et fait disparaître les dresseurs.
 En cas de problème, utilisez `/function academy_npcs:config/force_end_battles`
 
 ### Modifier le nombre maximum de dresseurs
+
 Dans `trainer/spawn_random.mcfunction`, changez :
+
 ```mcfunction
 execute if score #trainer_count academy_npcs matches 20.. run return 0
 ```
+
 `20` = nombre max de dresseurs actifs simultanément.
 
 ### Personnaliser les dialogues
+
 Dans `config/teams.mcfunction`, modifiez les sections :
+
 ```mcfunction
 data modify storage academy_npcs:dialogues zone_X set value ["Message 1","Message 2","Message 3"]
 ```
@@ -112,22 +136,35 @@ data modify storage academy_npcs:dialogues zone_X set value ["Message 1","Messag
 ## 🐛 Dépannage
 
 ### Les dresseurs n'apparaissent pas
+
 1. Vérifiez que le système est démarré : `/function academy_npcs:config/start`
 2. Attendez 2 minutes (fréquence de spawn)
 3. Vérifiez qu'il n'y a pas déjà 20 dresseurs actifs
 
+### Problème avec spawn_manual ("Position invalide")
+
+Utilisez `/function academy_npcs:trainer/spawn_debug` à la place ! Cette commande :
+
+- Affiche un diagnostic détaillé de toutes les vérifications
+- Montre pourquoi une position est invalide (sol, espace, dresseurs proches, etc.)
+- Force le spawn si une surface est trouvée (ignore certaines restrictions pour les tests)
+- Parfait pour tester et déboguer votre configuration
+
 ### Les combats ne fonctionnent pas
+
 1. Consultez le guide : `/function academy_npcs:config/cobblemon_integration`
 2. Vérifiez que Cobblemon est installé et fonctionnel
 3. Testez les commandes Cobblemon manuellement : `/cobblemon help`
 4. Adaptez les fichiers selon votre version de Cobblemon
 
 ### Erreurs de configuration
+
 1. Rechargez la config : `/function academy_npcs:config/reload`
 2. Vérifiez la syntaxe JSON dans les fichiers modifiés
 3. Redémarrez le système si nécessaire
 
 ### Réinstallation complète
+
 ```mcfunction
 /function academy_npcs:config/stop
 /reload
@@ -146,6 +183,7 @@ data modify storage academy_npcs:dialogues zone_X set value ["Message 1","Messag
 ⚠️ **Important** : Ce datapack nécessite une adaptation spécifique à votre version de Cobblemon.
 
 ### Étapes d'intégration :
+
 1. **Exécutez** `/function academy_npcs:config/cobblemon_integration` pour voir le guide complet
 2. **Testez** vos commandes Cobblemon avec `/cobblemon help` ou `/cobblemon battle help`
 3. **Adaptez** les fichiers suivants selon votre version :
@@ -154,11 +192,13 @@ data modify storage academy_npcs:dialogues zone_X set value ["Message 1","Messag
    - `config/teams.mcfunction` - Noms des Pokémon (déjà adaptés aux standards)
 
 ### Versions supportées :
-- **Cobblemon 1.5.x** : `cobblemon battle trainer` 
+
+- **Cobblemon 1.5.x** : `cobblemon battle trainer`
 - **Cobblemon 1.4.x** : `cobblemon battle`
 - **Cobblemon 1.3.x** : `cobblemon npc battle`
 
 ### Test sans Cobblemon :
+
 Le système de spawn, zones et dialogues fonctionne indépendamment. Seuls les combats nécessitent Cobblemon.
 
 ## 📝 Notes de Développement
@@ -169,5 +209,6 @@ Le système de spawn, zones et dialogues fonctionne indépendamment. Seuls les c
 - Durée de vie automatique : 30 minutes sans joueur proche
 
 ---
+
 **Créé pour Radical Cobblemon Trainers API**
 Version 1.0 - Compatible Minecraft 1.21.1

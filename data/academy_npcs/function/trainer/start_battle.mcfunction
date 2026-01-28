@@ -16,7 +16,7 @@ tag @e[type=villager,tag=pokemon_trainer,distance=..10,limit=1] add in_battle
 execute as @s run cobblemon battle @e[type=villager,tag=pokemon_trainer,distance=..10,limit=1,sort=nearest]
 
 # Alternative pour Cobblemon 1.6 si la première commande ne fonctionne pas:
-# execute as @s run cobblemon trainer battle @e[tag=pokemon_trainer,distance=..10,limit=1,sort=nearest]
+# cobblemon trainer battle @e[tag=pokemon_trainer,distance=..10,limit=1,sort=nearest]
 
 # Message de confirmation
 tellraw @s [{"text":"[Academy NPCs] ","color":"gold"},{"text":"Combat initié avec le dresseur !","color":"green"}]

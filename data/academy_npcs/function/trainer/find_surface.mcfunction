@@ -12,4 +12,4 @@ execute if score #found_surface academy_npcs matches 0 positioned ~ ~-4 ~ if blo
 execute if score #found_surface academy_npcs matches 0 positioned ~ ~-5 ~ if block ~ ~ ~ #academy_npcs:solid_blocks if block ~ ~1 ~ #academy_npcs:spawnable_air if block ~ ~2 ~ #academy_npcs:spawnable_air run function academy_npcs:trainer/surface_found
 
 # Continuer la recherche récursivement si pas trouvé et pas trop bas
-execute if score #found_surface academy_npcs matches 0 if entity @s[y=70..] positioned ~ ~-6 ~ run function academy_npcs:trainer/find_surface
+execute if score #found_surface academy_npcs matches 0 positioned ~ ~-6 ~ if entity @s[y=70,dy=999999] run function academy_npcs:trainer/find_surface

@@ -6,4 +6,4 @@ execute store result score #trainer_count academy_npcs if entity @e[type=village
 execute if score #trainer_count academy_npcs matches 20.. run return 0
 
 # Choisir des joueurs aléatoirement comme points de spawn
-execute as @r[type=player] at @s run function academy_npcs:trainer/try_spawn_near_player
+execute as @r at @s run function academy_npcs:trainer/try_spawn_near_player
