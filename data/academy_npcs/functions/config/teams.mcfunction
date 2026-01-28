@@ -10,7 +10,7 @@
 # Zone 1 (0-500 blocs du spawn) - Équipes débutant
 data modify storage academy_npcs:teams zone_1 set value []
 data modify storage academy_npcs:teams zone_1 append value {name:"Dresseur Novice Lucas", pokemon:["caterpie","weedle","pidgey"]}
-data modify storage academy_npcs:teams zone_1 append value {name:"Campeuse Marie", pokemon:["rattata","spearow","nidoran_f"]}
+data modify storage academy_npcs:teams zone_1 append value {name:"Campeuse Marie", pokemon:["rattata","spearow","nidoran"]}
 data modify storage academy_npcs:teams zone_1 append value {name:"Scout Pierre", pokemon:["geodude","onix","machop"]}
 data modify storage academy_npcs:teams zone_1 append value {name:"Éleveuse Sarah", pokemon:["oddish","bellsprout","bulbasaur"]}
 data modify storage academy_npcs:teams zone_1 append value {name:"Nageur Tom", pokemon:["magikarp","psyduck","squirtle"]}
@@ -26,16 +26,16 @@ data modify storage academy_npcs:teams zone_2 append value {name:"Ornithologue A
 # Zone 3 (2000-5000 blocs) - Équipes avancées
 data modify storage academy_npcs:teams zone_3 set value []
 data modify storage academy_npcs:teams zone_3 append value {name:"Expert Vulcain", pokemon:["arcanine","rapidash","flareon","magmar","charizard"]}
-data modify storage academy_npcs:teams zone_3 append value {name:"Maître Psychique Zen", pokemon:["alakazam","hypno","jynx","mr_mime","mewtwo"]}
+data modify storage academy_npcs:teams zone_3 append value {name:"Maître Psychique Zen", pokemon:["alakazam","hypno","jynx","mrmime","mewtwo"]}
 data modify storage academy_npcs:teams zone_3 append value {name:"Dompteur Dragon Kane", pokemon:["dragonite","gyarados","charizard","aerodactyl","lapras"]}
-data modify storage academy_npcs:teams zone_3 append value {name:"Électricienne Spark", pokemon:["raichu","jolteon","magnezone","electrode","zapdos"]}
+data modify storage academy_npcs:teams zone_3 append value {name:"Électricienne Spark", pokemon:["raichu","jolteon","magneton","electrode","zapdos"]}
 data modify storage academy_npcs:teams zone_3 append value {name:"Glaciaire Frost", pokemon:["lapras","articuno","jynx","cloyster","dewgong"]}
 
 # Zone 4 (5000+ blocs) - Équipes légendaires
 data modify storage academy_npcs:teams zone_4 set value []
 data modify storage academy_npcs:teams zone_4 append value {name:"Champion Rouge", pokemon:["pikachu","charizard","blastoise","venusaur","snorlax","dragonite"]}
 data modify storage academy_npcs:teams zone_4 append value {name:"Maître Lance", pokemon:["dragonite","dragonite","dragonite","aerodactyl","gyarados","charizard"]}
-data modify storage academy_npcs:teams zone_4 append value {name:"Légende Mewtwo", pokemon:["mewtwo","mew","lugia","ho_oh","celebi","articuno"]}
+data modify storage academy_npcs:teams zone_4 append value {name:"Légende Mewtwo", pokemon:["mewtwo","mew","lugia","hooh","celebi","articuno"]}
 data modify storage academy_npcs:teams zone_4 append value {name:"Gardien Arceus", pokemon:["arceus","dialga","palkia","giratina","rayquaza","kyogre"]}
 data modify storage academy_npcs:teams zone_4 append value {name:"Ultime Blue", pokemon:["alakazam","machamp","gengar","tyranitar","metagross","garchomp"]}
 

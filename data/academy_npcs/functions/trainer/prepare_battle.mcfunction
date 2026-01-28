@@ -4,18 +4,26 @@
 # Afficher l'équipe du dresseur (pour debug et information)
 tellraw @a[distance=..15] [{"text":"[","color":"gray"},{"nbt":"data.selected_team.name","entity":"@s","color":"green"},{"text":"] ","color":"gray"},{"text":"Mon équipe: ","color":"white"},{"nbt":"data.selected_team.pokemon","entity":"@s","color":"aqua"}]
 
-# Ici on pourrait utiliser l'API Cobblemon pour:
-# 1. Créer les Pokémon du dresseur selon son équipe
-# 2. Les assigner au dresseur
-# 3. Démarrer le combat automatiquement
+# Intégration avec Cobblemon 1.6 - Commandes mises à jour
+# Le combat sera initié par start_battle.mcfunction avec les nouvelles commandes
 
-# Commandes Cobblemon (à adapter selon la vraie API):
-# /cobblemon spawn pokemon_name level_range
-# /cobblemon battle start @s @p
+# Afficher l'équipe pour information
+tellraw @a[distance=..15] [{"text":"[Dresseur] ","color":"blue"},{"text":"Voici mon équipe : ","color":"white"},{"nbt":"data.selected_team.pokemon","entity":"@s","color":"aqua"}]
+
+# Marquer le dresseur comme prêt au combat
+tag @s add battle_ready
+
+# Message de préparation
+tellraw @a[distance=..15] [{"text":"[Academy NPCs] ","color":"gold"},{"text":"Le dresseur prépare ses Pokémon pour le combat !","color":"yellow"}]
 
 # Marquer le dresseur comme en combat
 tag @s add in_battle
+tag @s remove post_battle
 scoreboard players set @s dialogue_cooldown 6000
+scoreboard players set @s battle_check_timer 100
+
+# Stocker l'ID du joueur qui combat (pour vérifier la fin)
+execute as @p[distance=..10] run scoreboard players operation @e[type=villager,tag=in_battle,distance=..5,limit=1] battle_player_id = @s player_id
 
 # Effets visuels
 particle minecraft:flame ~ ~2 ~ 1 1 1 0.1 50

@@ -15,12 +15,17 @@ Ce datapack génère automatiquement des dresseurs Pokémon avec des équipes é
 - `/function academy_npcs:config/stop` - Arrêter le système et retirer tous les dresseurs  
 - `/function academy_npcs:config/reload` - Recharger la configuration des équipes
 - `/function academy_npcs:trainer/spawn_manual` - Spawner un dresseur manuellement
+- `/function academy_npcs:config/force_end_battles` - Forcer la fin de tous les combats en cours
+- `/function academy_npcs:config/set_post_battle_delay` - Configurer le délai de despawn post-combat
+- `/function academy_npcs:config/cobblemon_integration` - Guide d'intégration Cobblemon
 
 ### Fonctionnement
 1. **Spawn automatique** : Toutes les 2 minutes, chance de spawn près d'un joueur aléatoire
 2. **Zones d'équilibrage** : 4 zones basées sur la distance du spawn (0-500, 500-2000, 2000-5000, 5000+ blocs)
-3. **Interaction** : Approchez-vous d'un dresseur pour déclencher le dialogue
-4. **Combat** : Cliquez sur "ACCEPTER LE COMBAT" pour lancer le duel
+3. **Spawn intelligent** : Les dresseurs apparaissent uniquement sur des surfaces appropriées (sol solide, espace libre, pas dans les arbres)
+4. **Interaction** : Approchez-vous d'un dresseur pour déclencher le dialogue
+5. **Combat** : Cliquez sur "ACCEPTER LE COMBAT" pour lancer le duel
+6. **Despawn automatique** : Après un combat, le dresseur disparaît en 30 secondes pour libérer la place
 
 ## ⚙️ Configuration des Équipes
 
@@ -64,12 +69,32 @@ data modify storage academy_npcs:teams zone_1 append value {name:"Rookie Tom", p
 
 ## 🔧 Personnalisation Avancée
 
+### Spawn Intelligent
+Le système vérifie automatiquement :
+- **Surface solide** : Terre, pierre, herbe, sable, etc.
+- **Espace libre** : 2 blocs de hauteur minimum
+- **Pas dans l'eau/lave** : Évite les spawns dangereux
+- **Distance des autres dresseurs** : Minimum 15 blocs entre dresseurs
+- **Pas dans les arbres** : Évite de spawner dans les feuillages
+- **Retry automatique** : Jusqu'à 5 tentatives pour trouver une position valide
+
 ### Modifier la fréquence de spawn
 Dans `config/start.mcfunction`, changez la ligne :
 ```mcfunction
 schedule function academy_npcs:trainer/spawn_random 120s replace
 ```
 `120s` = toutes les 2 minutes. Remplacez par `60s` (1 min), `300s` (5 min), etc.
+
+### Modifier le délai de despawn post-combat
+Dans `config/set_post_battle_delay.mcfunction`, changez :
+```mcfunction
+scoreboard players set #post_battle_delay academy_npcs 600
+```
+`600` = 30 secondes. Remplacez par `300` (15 sec), `1200` (1 min), etc.
+
+### Gestion des combats
+Le système détecte automatiquement la fin des combats et fait disparaître les dresseurs.
+En cas de problème, utilisez `/function academy_npcs:config/force_end_battles`
 
 ### Modifier le nombre maximum de dresseurs
 Dans `trainer/spawn_random.mcfunction`, changez :
@@ -91,6 +116,12 @@ data modify storage academy_npcs:dialogues zone_X set value ["Message 1","Messag
 2. Attendez 2 minutes (fréquence de spawn)
 3. Vérifiez qu'il n'y a pas déjà 20 dresseurs actifs
 
+### Les combats ne fonctionnent pas
+1. Consultez le guide : `/function academy_npcs:config/cobblemon_integration`
+2. Vérifiez que Cobblemon est installé et fonctionnel
+3. Testez les commandes Cobblemon manuellement : `/cobblemon help`
+4. Adaptez les fichiers selon votre version de Cobblemon
+
 ### Erreurs de configuration
 1. Rechargez la config : `/function academy_npcs:config/reload`
 2. Vérifiez la syntaxe JSON dans les fichiers modifiés
@@ -107,8 +138,28 @@ data modify storage academy_npcs:dialogues zone_X set value ["Message 1","Messag
 ## 🤝 Compatibilité
 
 - **Minecraft** : 1.21.1+
-- **Cobblemon** : Toutes versions récentes
+- **Cobblemon** : Toutes versions récentes (intégration à finaliser)
 - **Autres mods** : Compatible avec la plupart des modpacks
+
+## 🔧 Intégration avec Cobblemon
+
+⚠️ **Important** : Ce datapack nécessite une adaptation spécifique à votre version de Cobblemon.
+
+### Étapes d'intégration :
+1. **Exécutez** `/function academy_npcs:config/cobblemon_integration` pour voir le guide complet
+2. **Testez** vos commandes Cobblemon avec `/cobblemon help` ou `/cobblemon battle help`
+3. **Adaptez** les fichiers suivants selon votre version :
+   - `trainer/start_battle.mcfunction` - Commandes de combat
+   - `trainer/detect_battle_end.mcfunction` - Détection de fin de combat
+   - `config/teams.mcfunction` - Noms des Pokémon (déjà adaptés aux standards)
+
+### Versions supportées :
+- **Cobblemon 1.5.x** : `cobblemon battle trainer` 
+- **Cobblemon 1.4.x** : `cobblemon battle`
+- **Cobblemon 1.3.x** : `cobblemon npc battle`
+
+### Test sans Cobblemon :
+Le système de spawn, zones et dialogues fonctionne indépendamment. Seuls les combats nécessitent Cobblemon.
 
 ## 📝 Notes de Développement
 

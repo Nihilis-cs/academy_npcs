@@ -1,14 +1,11 @@
 # Gestion de la durée de vie des dresseurs
 # Despawn automatique si pas de joueurs à proximité
 
-# Décrémenter le timer de vie
-scoreboard players remove @s trainer_lifetime 1
+# Vérifier si le dresseur était en combat et que le combat est terminé
+execute if entity @s[tag=in_battle] run function academy_npcs:trainer/check_battle_end
 
-# Réinitialiser le timer si des joueurs sont proches
-execute if entity @a[distance=..20] run scoreboard players set @s trainer_lifetime 36000
+# Gérer le timer post-combat (despawn rapide après combat)
+execute if entity @s[tag=post_battle] run function academy_npcs:trainer/manage_post_battle
 
-# Despawn si le timer atteint zéro
-execute if score @s trainer_lifetime matches ..0 run function academy_npcs:trainer/despawn_trainer
-
-# Décrémenter le cooldown de dialogue
-execute if score @s dialogue_cooldown matches 1.. run scoreboard players remove @s dialogue_cooldown 1
+# Gestion normale de durée de vie pour les dresseurs pas en combat
+execute unless entity @s[tag=in_battle] unless entity @s[tag=post_battle] run function academy_npcs:trainer/manage_normal_lifetime
