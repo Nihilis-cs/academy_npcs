@@ -7,4 +7,4 @@ execute store result score #surface_y academy_npcs run data get storage academy_
 execute store result score #surface_z academy_npcs run data get storage academy_npcs:temp surface_z
 
 # Se positionner à la surface trouvée pour les vérifications
-$execute positioned $(surface_x) $(surface_y) $(surface_z) run function academy_npcs:trainer/check_final_position
+$execute positioned $(surface_x) $(surface_y) $(surface_z) run function academy_npcs:trainer/utils/check_final_position

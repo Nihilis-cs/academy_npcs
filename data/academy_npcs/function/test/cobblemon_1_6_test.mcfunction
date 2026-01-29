@@ -24,7 +24,10 @@ tellraw @s [{"text":"4b. Test combat v2: ","color":"yellow"},{"text":"/cobblemon
 tellraw @s [{"text":"5. Vérifier tags: ","color":"yellow"},{"text":"/data get entity @s","color":"white","clickEvent":{"action":"suggest_command","value":"/data get entity @s"}}]
 
 # 6. Test du système complet
-tellraw @s [{"text":"6. Test dialogue: ","color":"yellow"},{"text":"Faites clic-droit sur un dresseur","color":"white"}]
+tellraw @s [{"text":"6. Test clic droit: ","color":"yellow"},{"text":"/function academy_npcs:test/rightclick_test","color":"white","clickEvent":{"action":"run_command","value":"/function academy_npcs:test/rightclick_test"}}]
+
+# 7. Guide Radical API  
+tellraw @s [{"text":"7. Guide Radical API: ","color":"yellow"},{"text":"/function academy_npcs:config/radical_api_setup","color":"white","clickEvent":{"action":"run_command","value":"/function academy_npcs:config/radical_api_setup"}}]
 
 tellraw @s [{"text":"============================","color":"gold"}]
 tellraw @s [{"text":"Si une commande ne fonctionne pas, notez l'erreur pour ajuster l'intégration.","color":"gray","italic":true}]

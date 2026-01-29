@@ -9,8 +9,8 @@ scoreboard objectives add academy_active dummy
 scoreboard players set #system academy_active 1
 
 # Programmer les spawns automatiques (toutes les 2 minutes)
-schedule function academy_npcs:trainer/spawn_random 120s replace
-schedule function academy_npcs:trainer/manage_interactions 20t replace
+schedule function academy_npcs:trainer/utils/spawn_random 120s replace
+schedule function academy_npcs:trainer/utils/manage_interactions 10t replace
 
 # Message de confirmation
 tellraw @a [{"text":"[Academy NPCs] ","color":"gold"},{"text":"Système démarré ! Les dresseurs vont commencer à apparaître.","color":"green"}]

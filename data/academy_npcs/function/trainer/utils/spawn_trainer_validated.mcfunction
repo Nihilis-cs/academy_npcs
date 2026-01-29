@@ -7,4 +7,4 @@ execute store result storage academy_npcs:temp spawn_y double 1 run scoreboard p
 execute store result storage academy_npcs:temp spawn_z double 1 run scoreboard players get #surface_z academy_npcs
 
 # Spawn du dresseur à la position validée
-function academy_npcs:trainer/spawn_trainer_at_surface with storage academy_npcs:temp
+function academy_npcs:trainer/utils/spawn_trainer_at_surface with storage academy_npcs:temp

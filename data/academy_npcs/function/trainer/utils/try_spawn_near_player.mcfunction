@@ -9,4 +9,4 @@ execute if score #spawn_chance academy_npcs matches 31.. run return 0
 scoreboard players set #spawn_attempts academy_npcs 0
 
 # Essayer de trouver une position valide (maximum 5 tentatives)
-function academy_npcs:trainer/attempt_spawn
+function academy_npcs:trainer/utils/attempt_spawn

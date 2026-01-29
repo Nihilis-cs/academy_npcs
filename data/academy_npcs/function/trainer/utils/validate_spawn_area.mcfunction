@@ -6,4 +6,4 @@ execute store result storage academy_npcs:temp surface_x double 1 run scoreboard
 execute store result storage academy_npcs:temp surface_y double 1 run scoreboard players get #surface_y academy_npcs
 execute store result storage academy_npcs:temp surface_z double 1 run scoreboard players get #surface_z academy_npcs
 
-function academy_npcs:trainer/validate_at_position with storage academy_npcs:temp
+function academy_npcs:trainer/utils/validate_at_position with storage academy_npcs:temp

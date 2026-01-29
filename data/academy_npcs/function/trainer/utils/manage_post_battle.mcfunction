@@ -13,4 +13,4 @@ execute if score @s post_battle_timer matches 200 run particle minecraft:cloud ~
 execute if score @s post_battle_timer matches 100 run particle minecraft:smoke ~ ~1 ~ 0.5 0.5 0.5 0.1 25
 
 # Despawn quand le timer atteint zéro
-execute if score @s post_battle_timer matches ..0 run function academy_npcs:trainer/despawn_trainer
+execute if score @s post_battle_timer matches ..0 run function academy_npcs:trainer/utils/despawn_trainer

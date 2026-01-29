@@ -1,55 +1,150 @@
-# Academy NPCs - Dresseurs Pokémon Aléatoires
+# Academy NPCs - Dresseurs Pokémon Aléatoires pour Cobblemon 1.6
 
-Ce datapack génère automatiquement des dresseurs Pokémon avec des équipes équilibrées selon la distance du spawn mondial.
+## Vue d'ensemble
 
-## 🚀 Installation
+**Academy NPCs** est un datapack Minecraft spécialement conçu pour **Cobblemon 1.6** qui génère automatiquement des dresseurs Pokémon avec des équipes équilibrées dans votre monde. Le système offre une expérience immersive avec des combats naturels et des interactions fluides.
 
-1. Placez le dossier dans votre monde : `world/datapacks/academy_npcs`
-2. Rechargez les datapacks : `/reload`
-3. Le système s'installe automatiquement au chargement
+### Spécificités Techniques
 
-## 🎮 Utilisation
+- **🎯 Optimisé Cobblemon 1.6** : Intégration native avec l'API Radical Cobblemon Trainers
+- **🗺️ Système de zones intelligent** : 4 zones d'équilibrage basées sur la distance du spawn mondial (0-500, 500-2K, 2K-5K, 5K+ blocs)
+- **🤖 Spawn intelligent** : Validation automatique des positions (surface solide, espace libre, évite arbres/eau/lave)
+- **👆 Interaction clic-droit** : Système d'interaction naturel via mécanisme de villageois
+- **⚔️ Combats intégrés** : Utilise les commandes natives Cobblemon 1.6 pour des combats fluides
+- **🔄 Gestion automatique** : Cycle de vie complet (spawn, interaction, combat, despawn)
+- **🎲 Équipes randomisées** : Sélection aléatoire d'équipes pré-configurées par zone
+- **⏱️ Cooldowns intelligents** : Prévention du spam d'interactions et gestion des délais
+- **🛠️ Architecture modulaire** : Fonctions publiques séparées des utilitaires internes
 
-### Commandes principales
+### Fonctionnement du Système
 
-- `/function academy_npcs:config/start` - Démarrer le système de spawn automatique
-- `/function academy_npcs:config/stop` - Arrêter le système et retirer tous les dresseurs
-- `/function academy_npcs:config/reload` - Recharger la configuration des équipes
-- `/function academy_npcs:trainer/spawn_debug` - **Spawn de test avec diagnostic** (recommandé pour les tests)
-- `/function academy_npcs:trainer/spawn_manual` - Spawner un dresseur manuellement (validations strictes)
-- `/function academy_npcs:config/force_end_battles` - Forcer la fin de tous les combats en cours
-- `/function academy_npcs:config/set_post_battle_delay` - Configurer le délai de despawn post-combat
-- `/function academy_npcs:config/cobblemon_integration` - Guide d'intégration Cobblemon
+1. **Spawn automatique** : Toutes les 2 minutes, tentative de spawn près d'un joueur aléatoire
+2. **Validation de position** : Vérifications multiples pour un placement optimal
+3. **Interaction naturelle** : Clic-droit comme sur n'importe quel PNJ
+4. **Combat Cobblemon** : Transition fluide vers le système de combat natif
+5. **Nettoyage automatique** : Despawn après combat ou timeout
 
-### Fonctionnement
+---
 
-1. **Spawn automatique** : Toutes les 2 minutes, chance de spawn près d'un joueur aléatoire
-2. **Zones d'équilibrage** : 4 zones basées sur la distance du spawn (0-500, 500-2000, 2000-5000, 5000+ blocs)
-3. **Spawn intelligent** : Les dresseurs apparaissent uniquement sur des surfaces appropriées (sol solide, espace libre, pas dans les arbres)
-4. **Interaction** : Approchez-vous d'un dresseur pour déclencher le dialogue
-5. **Combat** : Cliquez sur "ACCEPTER LE COMBAT" pour lancer le duel
-6. **Despawn automatique** : Après un combat, le dresseur disparaît en 30 secondes pour libérer la place
+## Fonctions Disponibles
 
-## ⚙️ Configuration des Équipes
+### 📦 Installation et Configuration
 
-### Fichier de configuration
+#### `/function academy_npcs:install`
+**Installation initiale du datapack**
+- Configure les scoreboards et data storage nécessaires
+- Initialise les équipes par défaut
+- Prépare l'environnement pour le système de dresseurs
 
-Éditez le fichier : `data/academy_npcs/function/config/teams.mcfunction`
+#### `/function academy_npcs:config/start`
+**Démarrage du système de spawn automatique**
+- Active le spawning automatique toutes les 2 minutes
+- Lance la détection des zones pour tous les joueurs
+- Démarre la surveillance des interactions
 
-### Format des équipes
+#### `/function academy_npcs:config/stop`
+**Arrêt complet du système**
+- Stoppe tous les spawns automatiques
+- Supprime tous les dresseurs actifs
+- Nettoie les schedules en cours
 
-```mcfunction
-# Zone X (description)
-data modify storage academy_npcs:teams zone_X set value []
-data modify storage academy_npcs:teams zone_X append value {name:"Nom du Dresseur", pokemon:["pokemon1","pokemon2","pokemon3"]}
-```
+#### `/function academy_npcs:config/reload`
+**Rechargement de la configuration des équipes**
+- Recharge les équipes depuis le fichier de configuration
+- Met à jour les dialogues et messages
+- Applique les modifications sans redémarrer
 
-### Exemple d'ajout d'équipe
+#### `/function academy_npcs:config/teams`
+**Configuration des équipes par zone**
+- Définit les équipes Pokémon pour chaque zone de difficulté
+- Configure les dialogues associés
+- Structure les données pour le système de sélection aléatoire
 
-```mcfunction
-# Ajouter un nouveau dresseur en Zone 1
-data modify storage academy_npcs:teams zone_1 append value {name:"Rookie Tom", pokemon:["charmander","squirtle","bulbasaur"]}
-```
+#### `/function academy_npcs:config/set_post_battle_delay`
+**Configuration du délai de despawn post-combat**
+- Définit le temps avant despawn après un combat (défaut : 30 secondes)
+- Paramètre global modifiable selon les préférences
+
+#### `/function academy_npcs:config/force_end_battles`
+**Forçage de fin des combats en cours**
+- Termine manuellement tous les combats actifs
+- Utile en cas de bug ou de besoin de reset
+
+#### `/function academy_npcs:config/cobblemon_1_6`
+**Configuration spécifique Cobblemon 1.6**
+- Optimisations pour la version 1.6 de Cobblemon
+- Configuration des commandes de combat spécifiques
+
+#### `/function academy_npcs:config/radical_api_setup`
+**Guide de configuration pour l'API Radical Cobblemon Trainers**
+- Affiche les instructions d'optimisation
+- Propose des tests d'intégration
+
+#### `/function academy_npcs:config/examples`
+**Exemples de configuration d'équipes**
+- Modèles d'équipes pour inspiration
+- Formats de données corrects pour les équipes personnalisées
+
+### 🎮 Fonctions de Spawn
+
+#### `/function academy_npcs:trainer/spawn_manual`
+**Spawn manuel d'un dresseur avec validations strictes**
+- Spawne un dresseur à la position du joueur
+- Effectue toutes les vérifications de position
+- Échoue si la position n'est pas optimale
+
+#### `/function academy_npcs:trainer/spawn_debug`
+**Spawn de debug avec diagnostic complet**
+- Version debug de spawn_manual
+- Affiche un diagnostic détaillé de toutes les vérifications
+- Force le spawn même en cas de position sous-optimale
+- **Recommandé pour les tests et le debug**
+
+### ⚔️ Fonctions d'Interaction
+
+#### `/function academy_npcs:trainer/start_dialogue`
+**Initiation manuelle du dialogue**
+- Force le dialogue avec le dresseur le plus proche
+- Bypass les cooldowns pour les tests
+- Utile pour déboguer les interactions
+
+#### `/function academy_npcs:trainer/start_battle`
+**Initiation manuelle du combat**
+- Lance directement un combat avec le dresseur le plus proche
+- Bypass le dialogue pour test rapide
+- Configure l'équipe et lance les commandes Cobblemon
+
+#### `/function academy_npcs:trainer/manage_interactions`
+**Gestion du système d'interactions**
+- Cœur du système d'interaction clic-droit
+- Gère les cooldowns et la détection des clics
+- Maintient le cycle de vie des dresseurs
+
+### 🗺️ Fonctions de Zones
+
+#### `/function academy_npcs:zones/init`
+**Initialisation du système de zones**
+- Configure les limites et propriétés des 4 zones
+- Définit les critères d'équilibrage par distance
+
+#### `/function academy_npcs:zones/detect_zone`
+**Détection de zone pour un joueur**
+- Calcule la zone d'équilibrage basée sur la position
+- Retourne l'ID de zone pour sélection d'équipe appropriée
+
+### 🧪 Fonctions de Test
+
+#### `/function academy_npcs:test/rightclick_test`
+**Test complet du système d'interaction clic-droit**
+- Spawne un dresseur de test
+- Active le mode debug pour les interactions
+- Affiche des boutons pour tester dialogue/combat direct
+
+#### `/function academy_npcs:test/cobblemon_1_6_test`
+**Test de compatibilité Cobblemon 1.6**
+- Vérifie l'installation et la configuration de Cobblemon
+- Teste les commandes de combat spécifiques à la version 1.6
+- Guide d'intégration étape par étape
 
 ## 🏆 Zones et Équilibrage
 
@@ -175,31 +270,25 @@ Utilisez `/function academy_npcs:trainer/spawn_debug` à la place ! Cette comman
 ## 🤝 Compatibilité
 
 - **Minecraft** : 1.21.1+
-- **Cobblemon** : Toutes versions récentes (intégration à finaliser)
+- **Cobblemon** : 1.6.x (optimisé pour cette version)
+- **Radical Cobblemon Trainers API** : Intégration native
 - **Autres mods** : Compatible avec la plupart des modpacks
 
-## 🔧 Intégration avec Cobblemon
+## 🔧 Intégration avec Cobblemon 1.6
 
-⚠️ **Important** : Ce datapack nécessite une adaptation spécifique à votre version de Cobblemon.
+✅ **Entièrement intégré** : Ce datapack est spécifiquement optimisé pour Cobblemon 1.6 avec Radical Cobblemon Trainers API.
 
-### Étapes d'intégration :
+### Fonctionnalités :
 
-1. **Exécutez** `/function academy_npcs:config/cobblemon_integration` pour voir le guide complet
-2. **Testez** vos commandes Cobblemon avec `/cobblemon help` ou `/cobblemon battle help`
-3. **Adaptez** les fichiers suivants selon votre version :
-   - `trainer/start_battle.mcfunction` - Commandes de combat
-   - `trainer/detect_battle_end.mcfunction` - Détection de fin de combat
-   - `config/teams.mcfunction` - Noms des Pokémon (déjà adaptés aux standards)
+- **Interaction naturelle** : Clic droit comme un PNJ normal
+- **Commandes de combat** : Utilise les dernières commandes Cobblemon 1.6  
+- **Équipes pré-configurées** : Noms Pokémon compatibles avec Cobblemon 1.6
+- **Détection de fin de combat** : Système automatique intégré
 
-### Versions supportées :
+### Test rapide :
 
-- **Cobblemon 1.5.x** : `cobblemon battle trainer`
-- **Cobblemon 1.4.x** : `cobblemon battle`
-- **Cobblemon 1.3.x** : `cobblemon npc battle`
-
-### Test sans Cobblemon :
-
-Le système de spawn, zones et dialogues fonctionne indépendamment. Seuls les combats nécessitent Cobblemon.
+1. **Exécutez** `/function academy_npcs:config/quick_start` pour commencer
+2. **Testez** l'interaction avec `/function academy_npcs:test/rightclick_test`
 
 ## 📝 Notes de Développement
 

@@ -7,7 +7,7 @@ scoreboard objectives add interact_time dummy
 scoreboard objectives add dialogue_cooldown dummy
 
 # Gérer les IDs des joueurs pour le tracking des combats
-function academy_npcs:trainer/utils/manage_player_ids
+function academy_npcs:trainer/manage_player_ids
 
 # Le clic droit est détecté automatiquement via le trade factice
 # L'interaction déclenche start_dialogue via le système de trade

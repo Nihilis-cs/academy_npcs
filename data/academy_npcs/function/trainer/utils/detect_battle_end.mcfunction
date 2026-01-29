@@ -9,7 +9,7 @@
 # execute if score @s cobblemon_battle_state matches 0 run function academy_npcs:trainer/battle_ended
 
 # Méthode 3: Timeout - si en combat depuis plus de 10 minutes, considérer comme terminé
-execute if entity @s[scores={dialogue_cooldown=..0}] run function academy_npcs:trainer/battle_ended
+execute if entity @s[scores={dialogue_cooldown=..0}] run function academy_npcs:trainer/utils/battle_ended
 
 # Méthode 4: Vérifier si le joueur n'est plus en combat
 # execute unless entity @a[distance=..10,tag=cobblemon_in_battle] run function academy_npcs:trainer/battle_ended
